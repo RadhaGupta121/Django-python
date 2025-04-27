@@ -1,0 +1,26 @@
+<!-- templates/registration/login.html -->
+{% extends 'layout.html' %}
+
+{% block pagename %}
+<a href='{%url 'alltweets'%}' class="btn btn-outline-success" type="submit"> 
+  All tweets
+</a>
+{% endblock %}
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <style>
+      .errorlist {
+          color: red; /* or any color you want */
+          list-style: none;
+          padding: 0;
+          margin: 0 0 10px 0;
+          font-size: 0.9rem;
+      }
+  </style>
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't you have account? <a href="{%url 'registerUser'%}">Register here</a>
+{% endblock %}

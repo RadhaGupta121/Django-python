@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            {% block title %}
+            MyTwitter
+            {% endblock %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
+       
+    </head>
+    <body class='m-auto bg-dark text-light overflow-x-hidden' style='padding-top:70px'>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="{%url 'home'%}">
+
+                <img src='{%static 'twitter.png'%}' height='25px' width='25px'/>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+               
+                <form class="d-flex gap-2 " role="search" method='POST' action='{%url 'searchbyUser'%}'>
+                  {% csrf_token %}
+                  <input name='username' class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                 
+                
+                    {% block pagename  %}
+                    <button class="btn btn-outline-success" type="submit"> 
+                    Page 
+                  </button>
+                    {% endblock %}
+                  
+                
+                    {% if user.is_authenticated %}
+                  
+                 
+                    <a class="btn btn-outline-danger" href="{%url 'logout'%}" type="submit">
+                      Logout</a>
+
+                    
+                   
+                    {% else %}
+                    
+                    <a class="btn btn-outline-success" href="{% url 'registerUser' %}">
+                      {% block isRegister %} Register {% endblock %}
+                    </a>
+                    
+                    {% endif %}
+                
+                </form>
+              </div>
+            </div>
+          </nav>
+
+        {% comment %} container {% endcomment %}
+        <div class="container mt-4 text-center">
+           
+              {% block imageLogo %}
+              <div class="image-container">
+                <img id="twitterImage" src="{% static 'twitter.png' %}" height="40px" width="40px" />
+            </div>
+            
+            <script>
+                const img = document.getElementById('twitterImage');
+                const image1 = "{% static 'twitter.png' %}";
+                const image2 = "{% static 'twitter2.png' %}";
+            
+                setInterval(() => {
+                    img.src = (img.src.includes('twitter.png')) ? image2 : image1;
+                }, 1000); // Change image every 1 second (1000 milliseconds)
+            </script>
+              {% endblock %}
+          
+            
+        {% block content %}
+      <div class='mt-4'>
+
+      </div>
+        
+        {% endblock %}
+        </div>
+        <script src="" async defer></script>
+    </body>
+</html>

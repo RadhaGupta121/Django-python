@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+
+{% block pagename %}
+
+{% if user.is_authenticated %}
+
+<a href='{%url 'profile'%}' class="btn btn-outline-success" type="submit"> 
+  Profile
+ </a>
+{% else %}
+
+<a href='{%url 'login'%}' class="btn btn-outline-success" type="submit"> 
+  Login
+ </a>
+{% endif %}
+
+{% endblock %}
+{% block content %}
+<a href="{% url 'newTweet'  %}">
+    <button class="mt-4 btn btn-outline-success">
+        {% block create_tweet %} Create a tweet {% endblock %}
+    </button>
+    </a>
+<div class='mt-4 row d-flex gap-1 '>
+ {% for tweet in tweets %}
+ <div class="col">
+
+ <div class="card" style="width: 18rem;">
+    <img src="{{ tweet.image.url }}" class="card-img-top" alt="not found" style="height: 200px; object-fit: cover">
+    <div class="card-body">
+      <h5 class="card-title">{{tweet.user}}</h5>
+      <p class="card-text">{{tweet.content}}</p>
+      {% if tweet.user == user  %}
+      <a href="{%url 'editTweet' tweet.id %}" class="btn btn-primary">Edit</a>
+      <a href="{%url 'deleteTweet' tweet.id %}" class="btn btn-danger">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+ {% endfor %}
+</div>
+{% endblock %}

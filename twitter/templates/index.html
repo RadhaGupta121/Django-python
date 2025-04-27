@@ -1,0 +1,29 @@
+
+
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Twitter
+{% endblock %}
+
+{% block isRegister %}Register{% endblock %}
+{% block Login %}Radha {% endblock %}
+{% block pagename %}
+<button class="btn btn-outline-success" type="submit"> 
+  Home
+</button>
+{% endblock %}
+{% block imageLogo %}
+              <div class=''>
+              <img src='{%static 'twitter.png'%}' />
+            </div>
+              {% endblock %}
+{% block content %}
+<h1>You are welcome on Twitter</h1>
+<a href="{% url 'newTweet'  %}">
+<button class="btn btn-outline-success">
+    {% block create_tweet %} Create a tweet {% endblock %}
+</button>
+</a>
+{% endblock %}

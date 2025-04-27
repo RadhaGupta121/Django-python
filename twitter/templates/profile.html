@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block pagename %}
+<a href='{%url 'alltweets'%}' class='btn btn-success'>
+    All tweets 
+</a>
+{% endblock %}
+{% block content %}
+<h5 class="card-title text-white">{{user}}</h5>
+<div  class='mt-4 d-flex gap-4 '>
+{% for tweet in tweets  %}
+<div class="card" style="width: 18rem;">
+    <img src="{{ tweet.image.url }}" class="card-img-top" alt="not found" style="height: 200px; object-fit: cover">
+    <div class="card-body">
+      <h5 class="card-title">{{tweet.user}}</h5>
+      <p class="card-text">{{tweet.content}}</p>
+      
+      <a href="{%url 'editTweet' tweet.id %}" class="btn btn-primary">Edit</a>
+      <a href="{%url 'deleteTweet' tweet.id %}" class="btn btn-danger">Delete</a>
+      
+    </div>
+    <div class='bg-warning'>
+        <p>Created at: {{tweet.created_at}}</p>
+       
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+  
+{% endblock %}
